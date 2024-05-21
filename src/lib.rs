@@ -60,7 +60,7 @@ impl Build {
         let mut source_dir = match version {
             Lua51 => source_dir_base.join("lua-5.1.5"),
             Lua52 => source_dir_base.join("lua-5.2.4"),
-            Lua52Factorio => source_dir_base.join("lua-factorio-5.2.1"),
+            Lua52Factorio => source_dir_base.join("lua-factorio-5.2.1/src"),
             Lua53 => source_dir_base.join("lua-5.3.6"),
             Lua54 => source_dir_base.join("lua-5.4.6"),
         };
