@@ -1,5 +1,5 @@
 [package]
-name = "lua-src"
+name = "factorio-lua-src"
 version = "546.0.2"
 authors = ["Aleksandr Orlenko <zxteam@protonmail.com>"]
 edition = "2021"

@@ -6,6 +6,7 @@ use std::path::{Path, PathBuf};
 pub enum Version {
     Lua51,
     Lua52,
+    Lua52Factorio,
     Lua53,
     Lua54,
 }
@@ -59,6 +60,7 @@ impl Build {
         let mut source_dir = match version {
             Lua51 => source_dir_base.join("lua-5.1.5"),
             Lua52 => source_dir_base.join("lua-5.2.4"),
+            Lua52Factorio => source_dir_base.join("lua-factorio-5.2.1"),
             Lua53 => source_dir_base.join("lua-5.3.6"),
             Lua54 => source_dir_base.join("lua-5.4.6"),
         };
@@ -147,10 +149,14 @@ impl Build {
 
         let lib_name = match version {
             Lua51 => "lua5.1",
-            Lua52 => "lua5.2",
+            Lua52 | Lua52Factorio => "lua5.2",
             Lua53 => "lua5.3",
             Lua54 => "lua5.4",
         };
+
+        if let Lua52Factorio = version {
+            config.cpp(true).define("USE_LUA_PACKAGE", None);
+        }
 
         config
             .include(&source_dir)
@@ -198,6 +204,12 @@ impl Build {
                     .file(source_dir.join("lcorolib.c"))
                     .file(source_dir.join("lctype.c"));
             }
+            Lua52Factorio => {
+                config
+                    .file(source_dir.join("lbitlib.c"))
+                    .file(source_dir.join("lcorolib.c"))
+                    .file(source_dir.join("lctype.c"));
+            }
             Lua53 => {
                 config
                     .file(source_dir.join("lbitlib.c"))
@@ -217,6 +229,10 @@ impl Build {
 
         for f in &["lauxlib.h", "lua.h", "luaconf.h", "lualib.h"] {
             fs::copy(source_dir.join(f), include_dir.join(f)).unwrap();
+        }
+
+        if let Lua52Factorio = version {
+            fs::copy(source_dir.join("lua.hpp"), include_dir.join("lua.hpp")).unwrap();
         }
 
         Artifacts {

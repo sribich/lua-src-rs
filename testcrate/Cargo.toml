@@ -6,9 +6,10 @@ authors = ["Aleksandr Orlenko <zxteam@protonmail.com>"]
 [features]
 lua54 = []
 lua53 = []
+lua52-factorio = []
 lua52 = []
 lua51 = []
 
-[build-dependencies.lua-src]
+[build-dependencies.factorio-lua-src]
 path = ".."
 features = ["ucid"]

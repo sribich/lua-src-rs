@@ -35,7 +35,7 @@ extern "C" {
         k: *const c_void,
     ) -> c_int;
 
-    #[cfg(feature = "lua52")]
+    #[cfg(any(feature = "lua52", feature = "lua52-factorio"))]
     pub fn lua_getglobal(state: *mut c_void, k: *const c_char);
     #[cfg(any(feature = "lua53", feature = "lua54"))]
     pub fn lua_getglobal(state: *mut c_void, k: *const c_char) -> c_int;
@@ -74,7 +74,7 @@ fn test_lua() {
 
         #[cfg(feature = "lua51")]
         assert_eq!(version, "Lua 5.1".as_bytes());
-        #[cfg(feature = "lua52")]
+        #[cfg(any(feature = "lua52", feature = "lua52-factorio"))]
         assert_eq!(version, "Lua 5.2".as_bytes());
         #[cfg(feature = "lua53")]
         assert_eq!(version, "Lua 5.3".as_bytes());
