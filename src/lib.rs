@@ -159,7 +159,7 @@ impl Build {
             config
                 .cpp(true)
                 .cpp_link_stdlib("stdc++")
-                .flag("-fno-exceptions")
+                .flag("-fexceptions")
                 .define("USE_LUA_PACKAGE", None);
         }
 
