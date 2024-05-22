@@ -156,7 +156,10 @@ impl Build {
 
         if let Lua52Factorio = version {
             // config.cpp(true).define("USE_LUA_PACKAGE", None);
-            config.define("USE_LUA_PACKAGE", None);
+            config
+                .cpp(true)
+                .flag("-fexceptions")
+                .define("USE_LUA_PACKAGE", None);
         }
 
         config
